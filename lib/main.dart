@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/Core/styles/themes.dart';
 import 'package:news_app/view/home_screen.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(),
+      theme: MyTheme.lightThem,
       routes: {
         HomeScreen.routeName: (BuildContext context) => HomeScreen(),
       },
