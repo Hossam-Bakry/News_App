@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:news_app/Core/styles/themes.dart';
 import 'package:news_app/model/api/news_response_model.dart';
 import 'package:news_app/view/category_details_screen/news_details_screen.dart';
 
@@ -23,7 +25,18 @@ class NewsItemWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              child: Image.network(news.urlToImage ?? ''),
+              child: CachedNetworkImage(
+                imageUrl: news.urlToImage ?? '',
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    Center(
+                        child: CircularProgressIndicator(
+                  value: downloadProgress.progress,
+                  color: MyTheme.primaryColor,
+                )),
+                errorWidget: (context, url, error) =>
+                    Center(child: Icon(Icons.error)),
+              ),
+              // Image.network(news.urlToImage ?? ''),
               borderRadius: BorderRadius.circular(10),
             ),
             Container(

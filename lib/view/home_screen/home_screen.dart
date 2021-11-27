@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:news_app/Core/styles/themes.dart';
 import 'package:news_app/view/category_details_screen/category_details_screen.dart';
 import 'package:news_app/view/home_screen/widgets/categories_widget.dart';
+import 'package:news_app/view/search_screen/search_screen.dart';
+import 'package:news_app/view/settings_screen/setting_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'home';
@@ -23,8 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
       const Color.fromRGBO(201, 28, 34, 1.0),
     ),
     Category(
-      'Politics',
-      'Politics',
+      'General',
+      'General',
       'assets/images/politics.png',
       const Color.fromRGBO(0, 62, 144, 1.0),
     ),
@@ -41,8 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
       const Color.fromRGBO(207, 126, 72, 1.0),
     ),
     Category(
-      'Enviroment',
-      'Enviroment',
+      'Entertainment',
+      'Entertainment',
       'assets/images/environment.png',
       const Color.fromRGBO(72, 130, 207, 1.0),
     ),
@@ -60,6 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    int currentIndex = 0;
+    List<Widget> displayScreen = [];
 
     return Stack(
       children: [
@@ -75,9 +79,9 @@ class _HomeScreenState extends State<HomeScreen> {
         Scaffold(
           appBar: AppBar(
             iconTheme: const IconThemeData(size: 30, color: Colors.white),
-            title: const Text(
-              'News Title',
-              style: TextStyle(fontSize: 22.0, color: Colors.white),
+            title: Text(
+              selectedCategory == null ? 'News Title' : selectedCategory!.title,
+              style: const TextStyle(fontSize: 22.0, color: Colors.white),
             ),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
@@ -91,7 +95,9 @@ class _HomeScreenState extends State<HomeScreen> {
               selectedCategory == null
                   ? SizedBox(width: size.width * 0.1)
                   : IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, SearchScreen.routeName);
+                      },
                       icon: const ImageIcon(
                         AssetImage('assets/images/ic_search.png'),
                         size: 30,
@@ -145,23 +151,29 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(left: 15, top: 8),
-                  child: Row(
-                    children: const [
-                      Icon(
-                        Icons.settings,
-                        size: 34,
-                      ),
-                      SizedBox(width: 15),
-                      Text(
-                        'Settings',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
+                InkWell(
+                  onTap: () {
+                    Navigator.pushReplacementNamed(
+                        context, SettingScreen.routeName);
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 15, top: 8),
+                    child: Row(
+                      children: const [
+                        Icon(
+                          Icons.settings,
+                          size: 34,
                         ),
-                      ),
-                    ],
+                        SizedBox(width: 15),
+                        Text(
+                          'Settings',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
