@@ -16,25 +16,38 @@ class _WebScreenState extends State<WebScreen> {
     News news = ModalRoute.of(context)!.settings.arguments as News;
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text(
-          'News Title',
-          style: TextStyle(fontSize: 22.0, color: Colors.white),
+    return Stack(
+      children: [
+        Container(
+          color: Colors.white,
+          child: Image.asset(
+            'assets/images/background.png',
+            width: double.infinity,
+            height: double.infinity,
+            fit: BoxFit.cover,
+          ),
         ),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(45),
-              bottomRight: Radius.circular(45)),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            title: const Text(
+              'News Title',
+              style: TextStyle(fontSize: 22.0, color: Colors.white),
+            ),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(45),
+                  bottomRight: Radius.circular(45)),
+            ),
+            toolbarHeight: size.height * 0.075,
+            centerTitle: true,
+            leadingWidth: 100,
+          ),
+          body: WebView(
+            initialUrl: news.url,
+          ),
         ),
-        toolbarHeight: size.height * 0.075,
-        centerTitle: true,
-        leadingWidth: 100,
-      ),
-      body: WebView(
-        initialUrl: news.url,
-      ),
+      ],
     );
   }
 }

@@ -5,7 +5,7 @@ import 'package:news_app/model/api/news_response_model.dart';
 import 'package:news_app/model/api/source_responce_model.dart';
 
 class ApiMethods {
-  static const String apiKey = 'a8f13463e12743adb9cea4d3a745673a';
+  static const String apiKey = '8e0a7c6d18d145f8b3e5053fbd3375b1';
 
   static Future<SourceResponce> loadNewsSourses(String category) async {
     Map<String, dynamic>? queryParams = {
@@ -40,7 +40,7 @@ class ApiMethods {
     Map<String, dynamic>? queryParams = {
       'apiKey': apiKey,
       'sources': source,
-      'qInTitle': query,
+      'q': query,
     };
 
     Uri uri = Uri.https(
